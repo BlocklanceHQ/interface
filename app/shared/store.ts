@@ -6,6 +6,7 @@ interface IAppStore {
     name: string;
     address?: string;
     image?: string;
+    isBeta?: boolean;
   };
 }
 

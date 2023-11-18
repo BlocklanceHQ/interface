@@ -28,7 +28,14 @@ export default function App() {
             <Outlet />
           </div>
         </WalletProvider>
-        <Toaster position="bottom-right" />
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            className: "text-xs",
+            style: { background: "rgb(53 26 229)", color: "white" },
+            duration: 3000,
+          }}
+        />
         <ScrollRestoration />
         <LiveReload />
         <Scripts />

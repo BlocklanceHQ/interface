@@ -1,5 +1,5 @@
 import type { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
-import { ChevronRightIcon } from "lucide-react";
+import { ChevronRightIcon, ExternalLinkIcon } from "lucide-react";
 import Airtable from "airtable";
 import { Card } from "~/components/card";
 import { Footer } from "~/components/footer";
@@ -46,10 +46,16 @@ export default function Index() {
               A decentralized freelancing platform, connecting buyers and
               sellers. Low fees, secured Data—powered by the community!
             </div>
-            <button className="px-8 py-4 opacity-40 bg-primary-700 rounded-lg justify-center items-center gap-4 inline-flex text-neutral-50 font-medium cursor-not-allowed">
-              Launch App
-              <ChevronRightIcon size={20} />
-            </button>
+            <div className="flex gap-4">
+              <button className="p-4 bg-primary-700 rounded-lg justify-center items-center gap-4 inline-flex text-neutral-50 font-medium cursor-not-allowed">
+                Read Whitepaper
+                <ExternalLinkIcon size={20} />
+              </button>
+              <button className="px-8 py-4 opacity-40 bg-primary-700 rounded-lg justify-center items-center gap-4 inline-flex text-neutral-50 font-medium cursor-not-allowed">
+                Launch App
+                <ChevronRightIcon size={20} />
+              </button>
+            </div>
           </>
         }
       />
