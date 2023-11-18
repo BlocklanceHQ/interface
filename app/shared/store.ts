@@ -9,13 +9,18 @@ interface IAppStore {
   };
 }
 
+const defaultAppStore: IAppStore = {
+  language: "en",
+  account: {
+    name: "Guest",
+  },
+};
+
 const appStore = createStore({
-  initialState: {
-    language: "en",
-    account: {
-      name: "Guest",
-    },
-  } as IAppStore,
+  get initialState(): IAppStore {
+    const persistedStore = globalThis.localStorage?.getItem("appStore");
+    return persistedStore ? JSON.parse(persistedStore) : defaultAppStore;
+  },
   actions: {
     setLanguage(language: string) {
       return ({ setState }) => {
@@ -33,7 +38,7 @@ const appStore = createStore({
 
 defaults.mutator = (currentState, partialState) => {
   const newState = Object.assign({}, currentState, partialState);
-  console.log("mutator", newState);
+  globalThis.localStorage?.setItem("appStore", JSON.stringify(newState));
   return newState;
 };
 

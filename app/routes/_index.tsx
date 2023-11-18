@@ -1,8 +1,10 @@
 import type { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
 import { ChevronRightIcon } from "lucide-react";
 import Airtable from "airtable";
-import SvgNomad from "~/assets/svg/nomad.svg";
 import { Card } from "~/components/card";
+import { Footer } from "~/components/footer";
+import { Socials } from "~/components/socials";
+import SvgNomad from "~/assets/svg/nomad.svg";
 
 export const meta: MetaFunction = () => {
   return [
@@ -34,8 +36,8 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function MainLayout() {
   return (
     <>
-      <div className="w-full relative bg-gradient-to-l from-violet-300 to-violet-200 rounded-lg  flex flex-col-reverse md:flex-row justify-between">
-        <div className="md:w-1/2 p-8 pt-4 md:p-16 md:pt-12">
+      <div className="w-full relative bg-gradient-to-l from-violet-300 to-violet-200 rounded-lg  flex flex-row justify-between">
+        <div className="md:w-1/2 p-8 md:p-16 md:pt-12">
           <div className="w-full text-stone-900 text-5xl font-semibold leading-[62px] mb-6">
             Welcome to the Future of Work!
           </div>
@@ -48,7 +50,7 @@ export default function MainLayout() {
             <ChevronRightIcon size={20} />
           </button>
         </div>
-        <img src={SvgNomad} className="h-full" />
+        <img src={SvgNomad} className="hidden md:flex h-full" />
       </div>
       <div className="w-full mt-36">
         <h1 className="text-stone-900 text-3xl font-medium text-center mb-6">
@@ -203,6 +205,8 @@ export default function MainLayout() {
           />
         </div>
       </div>
+      <Footer />
+      <Socials />
     </>
   );
 }

@@ -7,6 +7,6 @@ export const useIsAuthenticated = createHook(appStore, {
   selector: (state) => !!state.account.address,
 });
 
-export const useAccount = createHook(appStore, {
+export const useSharedAccount = createHook(appStore, {
   selector: (state) => state.account,
 });

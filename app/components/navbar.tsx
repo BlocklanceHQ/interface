@@ -1,21 +1,13 @@
 import { Link } from "@remix-run/react";
-import { Listbox } from "@headlessui/react";
-import { ChevronRightIcon } from "lucide-react";
-import { useAppStore } from "~/shared";
-
-const languages = [
-  {
-    name: "English",
-    code: "en",
-  },
-];
+import { useIsAuthenticated } from "~/shared";
+import { ConnectWallet } from "./connect";
+import { LanguageSelector } from "./language";
 
 export const Navbar = () => {
-  const [{ language }, { setLanguage }] = useAppStore();
-  const currentLanguage = languages.find((lang) => lang.code === language);
+  const [isAuthenticated] = useIsAuthenticated();
   return (
     <nav className="mb-32">
-      <header className="fixed top-0 w-full px-16 py-4 bg-neutral-50 rounded-bl-lg rounded-br-lg shadow justify-between items-center inline-flex z-10">
+      <header className="fixed top-0 w-full p-4 md:px-16 bg-neutral-50 rounded-bl-lg rounded-br-lg shadow justify-between items-center inline-flex z-10">
         <div className="justify-center items-center gap-4 flex">
           <div className="px-4 py-3 bg-primary-700 rounded-lg justify-center items-center gap-2.5 flex">
             <svg
@@ -54,41 +46,29 @@ export const Navbar = () => {
           </div>
           <div className="text-neutral-600 font-bold">Blocklance</div>
         </div>
-        <div className="hidden md:flex p-2 bg-neutral-100 rounded-full items-start text-sm text-neutral-300">
-          <button className="px-12 py-2.5 bg-neutral-100 rounded-3xl justify-center items-center flex">
-            Dashboard
-          </button>
-          <button className="px-12 py-2.5 bg-neutral-100 rounded-3xl justify-center items-center flex">
-            Projects
-          </button>
-          <button className="px-12 py-2.5 bg-neutral-100 rounded-3xl justify-center items-center flex">
-            Payments
-          </button>
-        </div>
+        {isAuthenticated && (
+          <div className="hidden md:flex p-2 bg-neutral-100 rounded-full items-start text-sm text-neutral-300">
+            <button className="px-12 py-2.5 bg-neutral-100 rounded-3xl justify-center items-center flex">
+              Dashboard
+            </button>
+            <button className="px-12 py-2.5 bg-neutral-100 rounded-3xl justify-center items-center flex">
+              Projects
+            </button>
+            <button className="px-12 py-2.5 bg-neutral-100 rounded-3xl justify-center items-center flex">
+              Payments
+            </button>
+          </div>
+        )}
         <div className="hidden md:flex justify-center items-center gap-6">
-          <div className="justify-start items-center gap-2 flex">
-            <div className="text-neutral-400 text-xs">Language:</div>
-            <Listbox value={language} onChange={setLanguage}>
-              <Listbox.Button className="px-3.5 py-2 rounded-md border border-neutral-200 items-center gap-4 flex text-neutral-600 text-xs">
-                {currentLanguage?.name} <ChevronRightIcon size={15} />
-              </Listbox.Button>
-              {/* <Listbox.Options>
-                {languages.map((lang) => (
-                  <Listbox.Option key={lang.code} value={lang.code}>
-                    {lang.name}
-                  </Listbox.Option>
-                ))}
-              </Listbox.Options> */}
-            </Listbox>
-          </div>
-          <div className="p-1 opacity-40 rounded-3xl items-start flex">
-            <div className="w-5 h-5 relative">
-              <div className="w-1 h-1 left-[11px] top-[4px] absolute bg-red-500 rounded-full" />
+          <LanguageSelector />
+          {isAuthenticated && (
+            <div className="p-1 opacity-40 rounded-3xl items-start flex">
+              <div className="w-5 h-5 relative">
+                <div className="w-1 h-1 left-[11px] top-[4px] absolute bg-red-500 rounded-full" />
+              </div>
             </div>
-          </div>
-          <button className="px-6 py-3 bg-primary-700 hover:bg-primary-600 rounded-md shadow justify-center items-center gap-2.5 flex text-neutral-50 text-xs font-medium leading-normal">
-            Connect Wallet
-          </button>
+          )}
+          <ConnectWallet />
           <div className="justify-start items-start gap-2.5 flex">
             <div className="w-10 h-10 relative">
               <div className="w-10 h-10 left-0 top-0 absolute">
