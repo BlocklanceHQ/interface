@@ -3,7 +3,7 @@ import { createStore, defaults } from "react-sweet-state";
 interface IAppStore {
   language: string;
   account: {
-    name: string;
+    name?: string;
     address?: string;
     image?: string;
     isBeta?: boolean;
@@ -28,9 +28,15 @@ const appStore = createStore({
         setState({ language });
       };
     },
-    setAccount(account: IAppStore["account"]) {
-      return ({ setState }) => {
-        setState({ account });
+    setAccount(account: Partial<IAppStore["account"]>) {
+      return ({ setState, getState }) => {
+        const { account: currentAccount } = getState();
+        setState({
+          account: {
+            ...currentAccount,
+            ...account,
+          },
+        });
       };
     },
   },

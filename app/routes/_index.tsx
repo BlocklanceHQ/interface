@@ -1,10 +1,13 @@
+import { useEffect } from "react";
 import type { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
+import { useSearchParams } from "@remix-run/react";
 import { ChevronRightIcon, ExternalLinkIcon } from "lucide-react";
 import Airtable from "airtable";
 import { Card } from "~/components/card";
 import { Footer } from "~/components/footer";
 import { Socials } from "~/components/socials";
 import { SectionHeader } from "~/components/section-header";
+import { useSharedAccount } from "~/shared";
 
 export const meta: MetaFunction = () => {
   return [
@@ -34,6 +37,16 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function Index() {
+  const [search] = useSearchParams();
+  const [, { setAccount }] = useSharedAccount();
+  const accessCode = search.get("accessCode");
+
+  useEffect(() => {
+    if (accessCode === "backdrop") {
+      setAccount({ isBeta: true });
+    }
+  }, [accessCode]);
+
   return (
     <>
       <SectionHeader
@@ -50,10 +63,6 @@ export default function Index() {
               <button className="p-4 bg-primary-700 rounded-lg justify-center items-center gap-4 inline-flex text-neutral-50 font-medium cursor-not-allowed">
                 Read Whitepaper
                 <ExternalLinkIcon size={20} />
-              </button>
-              <button className="px-8 py-4 opacity-40 bg-primary-700 rounded-lg justify-center items-center gap-4 inline-flex text-neutral-50 font-medium cursor-not-allowed">
-                Launch App
-                <ChevronRightIcon size={20} />
               </button>
             </div>
           </>

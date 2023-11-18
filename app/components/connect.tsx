@@ -20,7 +20,7 @@ export const ConnectWallet = () => {
     },
     onSuccess(result) {
       toast.success("Successfully connected to wallet");
-      setAccount({ address: result.account, name: result.account });
+      setAccount({ address: result.account });
     },
   });
 
