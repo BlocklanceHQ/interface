@@ -1,3 +1,4 @@
+import { Form } from "@remix-run/react";
 import OnchainImg from "~/assets/onchain.png";
 
 export const Footer = () => {
@@ -12,15 +13,25 @@ export const Footer = () => {
           Become an early tester – your journey with Blocklance starts NOW!
         </div>
       </div>
-      <div className="w-full flex-col justify-center items-center gap-6 inline-flex">
+
+      <Form
+        action="/?index"
+        method="post"
+        className="w-full flex-col justify-center items-center gap-6 inline-flex"
+      >
         <input
+          type="email"
+          name="email"
           className="md:w-1/3 px-8 py-4 bg-neutral-100 rounded shadow placeholder:text-primary-400"
           placeholder="Email Address"
         />
-        <button className="px-9 py-4 bg-violet-200 rounded-md text-primary-700 font-semibold">
+        <button
+          type="submit"
+          className="px-9 py-4 bg-violet-200 rounded-md text-primary-700 font-semibold"
+        >
           Subscribe
         </button>
-      </div>
+      </Form>
     </footer>
   );
 };

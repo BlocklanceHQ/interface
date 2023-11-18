@@ -1,5 +1,6 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
 import { ChevronRightIcon } from "lucide-react";
+import Airtable from "airtable";
 import SvgNomad from "~/assets/svg/nomad.svg";
 import { Card } from "~/components/card";
 
@@ -9,6 +10,26 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "Welcome to Blocklance!" },
   ];
 };
+
+export async function action({ request }: ActionFunctionArgs) {
+  const base = Airtable.base(process.env.AIRTABLE_TABLE_ID ?? "");
+  const formData = await request.formData();
+
+  const email = formData.get("email")?.valueOf().toString();
+
+  await base("Participants").create([
+    {
+      fields: {
+        Email: email,
+        Name: email?.split("@")[0].replace(".", " "),
+        Status: "Cant wait",
+        "Current Role": "Freelancer",
+      },
+    },
+  ]);
+
+  return true;
+}
 
 export default function MainLayout() {
   return (
