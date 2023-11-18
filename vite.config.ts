@@ -5,5 +5,5 @@ import svgr from "vite-plugin-svgr";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [svgr(), remix(), tsconfigPaths(), ViteImageOptimizer()],
+  plugins: [svgr(), remix({}), tsconfigPaths(), ViteImageOptimizer()],
 });
