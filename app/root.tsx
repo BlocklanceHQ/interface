@@ -6,6 +6,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { Navbar } from "~/components/navbar";
+import { Footer } from "./components/footer";
+import WalletProvider from "~/providers/wallet";
+import "@fontsource-variable/lexend-deca?inline";
+import "~/assets/tailwind.css?inline";
 
 export default function App() {
   return (
@@ -16,11 +21,15 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-        <Outlet />
+      <body className="bg-neutral-50 font-sans">
+        <WalletProvider>
+          <Navbar />
+          <Outlet />
+          <Footer />
+        </WalletProvider>
         <ScrollRestoration />
-        <Scripts />
         <LiveReload />
+        <Scripts />
       </body>
     </html>
   );
