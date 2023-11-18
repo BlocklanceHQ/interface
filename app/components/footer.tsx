@@ -41,7 +41,7 @@ export const Footer = () => {
               className={`px-9 py-4 bg-violet-200 rounded-md text-primary-700 font-semibold flex items-center gap-4 ${
                 pending
                   ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-primary-500 hover:text-neutral-50"
+                  : "hover:bg-violet-500 hover:text-primary-50"
               }`}
             >
               {pending && <LoaderIcon className="animate-spin mr-2" />}

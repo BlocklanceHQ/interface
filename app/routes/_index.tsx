@@ -33,7 +33,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function MainLayout() {
   return (
-    <div className="mx-4 md:mx-16 my-8">
+    <>
       <div className="w-full relative bg-gradient-to-l from-violet-300 to-violet-200 rounded-lg  flex flex-col-reverse md:flex-row justify-between">
         <div className="md:w-1/2 p-8 pt-4 md:p-16 md:pt-12">
           <div className="w-full text-stone-900 text-5xl font-semibold leading-[62px] mb-6">
@@ -203,6 +203,6 @@ export default function MainLayout() {
           />
         </div>
       </div>
-    </div>
+    </>
   );
 }

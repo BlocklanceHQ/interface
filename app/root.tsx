@@ -8,6 +8,7 @@ import {
 } from "@remix-run/react";
 import { Navbar } from "~/components/navbar";
 import { Footer } from "./components/footer";
+import { Socials } from "./components/socials";
 import WalletProvider from "~/providers/wallet";
 import "@fontsource-variable/lexend-deca";
 import "~/assets/tailwind.css";
@@ -24,8 +25,11 @@ export default function App() {
       <body className="bg-neutral-50 font-sans">
         <WalletProvider>
           <Navbar />
-          <Outlet />
-          <Footer />
+          <div className="mx-4 md:mx-16 my-8">
+            <Outlet />
+            <Footer />
+            <Socials />
+          </div>
         </WalletProvider>
         <ScrollRestoration />
         <LiveReload />
