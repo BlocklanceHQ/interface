@@ -46,7 +46,7 @@ export default function Index() {
               A decentralized freelancing platform, connecting buyers and
               sellers. Low fees, secured Data—powered by the community!
             </div>
-            <div className="flex gap-4">
+            <div className="flex flex-col md:flex-row gap-4">
               <button className="p-4 bg-primary-700 rounded-lg justify-center items-center gap-4 inline-flex text-neutral-50 font-medium cursor-not-allowed">
                 Read Whitepaper
                 <ExternalLinkIcon size={20} />
@@ -59,7 +59,7 @@ export default function Index() {
           </>
         }
       />
-      <div className="w-full mt-36">
+      <div className="w-full mt-36 mb-8">
         <h1 className="text-stone-900 text-3xl font-medium text-center mb-6">
           Everything you want. All in one.
         </h1>
