@@ -9,8 +9,8 @@ import {
 import { Navbar } from "~/components/navbar";
 import { Footer } from "./components/footer";
 import WalletProvider from "~/providers/wallet";
-import "@fontsource-variable/lexend-deca?inline";
-import "~/assets/tailwind.css?inline";
+import "@fontsource-variable/lexend-deca";
+import "~/assets/tailwind.css";
 
 export default function App() {
   return (
