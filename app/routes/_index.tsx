@@ -4,7 +4,7 @@ import Airtable from "airtable";
 import { Card } from "~/components/card";
 import { Footer } from "~/components/footer";
 import { Socials } from "~/components/socials";
-import SvgNomad from "~/assets/svg/nomad.svg";
+import { SectionHeader } from "~/components/section-header";
 
 export const meta: MetaFunction = () => {
   return [
@@ -33,25 +33,26 @@ export async function action({ request }: ActionFunctionArgs) {
   return true;
 }
 
-export default function MainLayout() {
+export default function Index() {
   return (
     <>
-      <div className="w-full relative bg-gradient-to-l from-violet-300 to-violet-200 rounded-lg  flex flex-row justify-between">
-        <div className="md:w-1/2 p-8 md:p-16 md:pt-12">
-          <div className="w-full text-stone-900 text-5xl font-semibold leading-[62px] mb-6">
-            Welcome to the Future of Work!
-          </div>
-          <div className="w-full text-neutral-600 text-lg mb-8">
-            A decentralized freelancing platform, connecting buyers and sellers.
-            Low fees, secured Data—powered by the community!
-          </div>
-          <button className="px-8 py-4 opacity-40 bg-primary-700 rounded-lg justify-center items-center gap-4 inline-flex text-neutral-50 font-medium cursor-not-allowed">
-            Launch App
-            <ChevronRightIcon size={20} />
-          </button>
-        </div>
-        <img src={SvgNomad} className="hidden md:flex h-full" />
-      </div>
+      <SectionHeader
+        hero={
+          <>
+            <div className="w-full text-stone-900 text-5xl font-semibold leading-[62px] mb-6">
+              Welcome to the Future of Work!
+            </div>
+            <div className="w-full text-neutral-600 text-lg mb-8">
+              A decentralized freelancing platform, connecting buyers and
+              sellers. Low fees, secured Data—powered by the community!
+            </div>
+            <button className="px-8 py-4 opacity-40 bg-primary-700 rounded-lg justify-center items-center gap-4 inline-flex text-neutral-50 font-medium cursor-not-allowed">
+              Launch App
+              <ChevronRightIcon size={20} />
+            </button>
+          </>
+        }
+      />
       <div className="w-full mt-36">
         <h1 className="text-stone-900 text-3xl font-medium text-center mb-6">
           Everything you want. All in one.
