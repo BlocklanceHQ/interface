@@ -1,28 +1,14 @@
-# templates/unstable-vite
+# BLOCKLANCE
 
-⚠️ Remix support for Vite is unstable and not recommended for production.
 
-📖 See the [Remix Vite docs][remix-vite-docs] for details on supported features.
+Blocklance is a decentralized freelance platform on the blockchain,connecting buyers (clients, businesses) with sellers (Freelancers/Talents) through cutting-edge blockchain technology. Our mission extends beyond merely connecting; we're dedicated to resolving prevalent issues in traditional freelancing platforms, such as exorbitant fees, account blockages, and centralized control. At Blocklance, your voice matters — it's a community-driven platform where everyone is valued.
 
-## Setup
+**Official Links**
 
-```shellscript
-npx create-remix@latest --template remix-run/remix/templates/unstable-vite
-```
+Website: https://blocklance.work/
 
-## Run
+Whitepaper:https://blocklances-organization.gitbook.io/blocklance-v1/introduction/overview
 
-Spin up the Vite dev server:
+Medium: https://medium.com/@blocklance
 
-```shellscript
-npm run dev
-```
-
-Or build your app for production and run it:
-
-```shellscript
-npm run build
-npm run start
-```
-
-[remix-vite-docs]: https://remix.run/docs/en/main/future/vite
+Twitter: https://twitter.com/BlocklanceGigs
