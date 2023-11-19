@@ -1,6 +1,6 @@
 import { createStore, defaults } from "react-sweet-state";
 
-interface IAppStore {
+export interface IAppStore {
   language: string;
   account: {
     name?: string;

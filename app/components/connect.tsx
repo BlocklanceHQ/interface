@@ -1,5 +1,5 @@
 import { Menu, Transition } from "@headlessui/react";
-import { XIcon, Loader2Icon } from "lucide-react";
+import { XIcon, Loader2Icon, LogOutIcon } from "lucide-react";
 import { useConnect, Connector, useDisconnect } from "wagmi";
 import { toast } from "react-hot-toast";
 import { useSharedAccount, useIsBetaUser } from "~/shared";
@@ -110,24 +110,37 @@ const ProfileMenu: React.FC<{
   return (
     <>
       <Menu.Item disabled>
-        {({ close }) => (
+        {() => (
           <div>
             <h3 className="text-black text-base font-medium flex justify-between mb-4">
-              {account.name}
+              {account.name === account.address
+                ? `${account.address?.slice(0, 6)}...${account.address?.slice(
+                    -4
+                  )}`
+                : account.name}
             </h3>
-            <p className="text-neutral-600 text-xs mb-1">{account.address}</p>
+            <p className="text-neutral-600 text-xs mb-1">
+              {account.address?.slice(0, 6)}...{account.address?.slice(-4)}
+            </p>
           </div>
         )}
       </Menu.Item>
-      <Menu.Item disabled>
-        {() => (
-          <button
-            onClick={disconnect}
-            className="px-4 py-3 bg-zinc-100 hover:bg-zinc-300 rounded-md justify-between items-center inline-flex"
-          >
-            <span className="text-neutral-600 text-xs font-medium">Logout</span>
-          </button>
-        )}
+      <Menu.Item>
+        <button
+          onClick={disconnect}
+          className="text-primary-700 text-xs font-medium px-4 py-3 bg-violet-100 hover:bg-violet-300 rounded-md gap-4 items-center inline-flex"
+        >
+          Account Settings
+        </button>
+      </Menu.Item>
+      <Menu.Item>
+        <button
+          onClick={disconnect}
+          className="text-red-400 text-xs font-medium px-4 py-3 bg-zinc-100 hover:bg-zinc-300 rounded-md gap-4 items-center inline-flex"
+        >
+          <LogOutIcon size={20} />
+          Logout
+        </button>
       </Menu.Item>
     </>
   );
@@ -135,7 +148,7 @@ const ProfileMenu: React.FC<{
 
 export const ConnectWallet = () => {
   const [isBetaUser] = useIsBetaUser();
-  const [account, { setAccount }] = useSharedAccount();
+  const [account, setAccount] = useSharedAccount();
 
   const { connect, connectors, isLoading, pendingConnector } = useConnect({
     onError() {
