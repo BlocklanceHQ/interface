@@ -21,14 +21,17 @@ const config = createConfig({
     new CoinbaseWalletConnector({
       chains,
       options: {
-        appName: "wagmi",
+        appName: "Blocklance",
       },
     }),
     new InjectedConnector({
       chains,
       options: {
-        name: "Injected",
+        name: "Binance Wallet",
         shimDisconnect: true,
+        getProvider: () =>
+          //@ts-expect-error - BinanceChain is not defined in window
+          typeof window !== "undefined" ? window.BinanceChain : undefined,
       },
     }),
   ],

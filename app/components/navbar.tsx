@@ -20,7 +20,7 @@ const navLinks = [
 ];
 
 export const Navbar = () => {
-  const [isAuthenticated] = useIsAuthenticated();
+  const isAuthenticated = useIsAuthenticated();
   return (
     <nav className="mb-32">
       <header className="fixed top-0 w-full p-4 md:px-16 bg-neutral-50 rounded-bl-lg rounded-br-lg shadow justify-between items-center inline-flex z-10">

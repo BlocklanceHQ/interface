@@ -5,16 +5,41 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
+import { json, LoaderFunctionArgs } from "@remix-run/node";
 import { Toaster } from "react-hot-toast";
 import { Navbar } from "~/components/navbar";
 import WalletProvider from "~/providers/wallet";
+import { commitSession, getSession } from "~/shared/session.server";
+import { IAppStore, defaultAppStore } from "./shared/store";
 import "@fontsource-variable/lexend-deca";
 import "~/assets/tailwind.css";
 
+export async function loader({ request }: LoaderFunctionArgs) {
+  const queryParams = new URLSearchParams(request.url.split("?")[1]);
+  const session = await getSession(request.headers.get("Cookie"));
+  const appStore: IAppStore = session.get("appStore") ?? defaultAppStore;
+
+  const accessCode = queryParams.get("accessCode");
+  if (accessCode === "backdrop") {
+    appStore.account.isBeta = true;
+  }
+
+  return json(
+    { appStore },
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    }
+  );
+}
+
 export default function App() {
+  const { appStore } = useLoaderData<typeof loader>();
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,7 +50,7 @@ export default function App() {
         <WalletProvider>
           <Navbar />
           <div className="mx-4 md:mx-16 my-8">
-            <Outlet />
+            <Outlet context={appStore} />
           </div>
         </WalletProvider>
         <Toaster

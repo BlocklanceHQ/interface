@@ -6,10 +6,12 @@ import { useSharedAccount, useIsBetaUser } from "~/shared";
 import ProfileSvg from "~/assets/svg/profile.svg";
 import MetaMaskIcon from "~/assets/wallets/metamask.svg";
 import CoinbaseIcon from "~/assets/wallets/coinbase.svg";
+import BinanceIcon from "~/assets/wallets/binance.svg";
 
 const walletIcons: Record<string, string> = {
   metaMask: MetaMaskIcon,
   coinbaseWallet: CoinbaseIcon,
+  injected: BinanceIcon,
 };
 
 const ProfileButton: React.FC<
@@ -147,7 +149,7 @@ const ProfileMenu: React.FC<{
 };
 
 export const ConnectWallet = () => {
-  const [isBetaUser] = useIsBetaUser();
+  const isBetaUser = useIsBetaUser();
   const [account, setAccount] = useSharedAccount();
 
   const { connect, connectors, isLoading, pendingConnector } = useConnect({

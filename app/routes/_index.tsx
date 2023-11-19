@@ -1,13 +1,10 @@
-import { useEffect } from "react";
 import type { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
-import { useSearchParams } from "@remix-run/react";
 import { ExternalLinkIcon } from "lucide-react";
 import Airtable from "airtable";
 import { Card } from "~/components/card";
 import { Footer } from "~/components/footer";
 import { Socials } from "~/components/socials";
 import { SectionHeader } from "~/components/section-header";
-import { useSharedAccount } from "~/shared";
 
 export const meta: MetaFunction = () => {
   return [
@@ -37,16 +34,6 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function Index() {
-  const [search] = useSearchParams();
-  const [, setAccount] = useSharedAccount();
-  const accessCode = search.get("accessCode");
-
-  useEffect(() => {
-    if (accessCode === "backdrop") {
-      setAccount({ isBeta: true });
-    }
-  }, [accessCode]);
-
   return (
     <>
       <SectionHeader

@@ -1,41 +1,53 @@
-import { createHook } from "react-sweet-state";
-import { useAccount, useEnsAvatar, useEnsName } from "wagmi";
-import appStore, { IAppStore } from "./store";
 import { useMemo } from "react";
+import { useFetcher, useLoaderData, useOutletContext } from "@remix-run/react";
+import { useAccount, useEnsAvatar, useEnsName } from "wagmi";
+import { IAppStore, defaultAppStore } from "./store";
 
-export const useAppStore = createHook(appStore);
+export const useAppStore = () => {
+  const context = useOutletContext<IAppStore>();
+  const loaderData = useLoaderData<{ appStore?: IAppStore }>();
 
-export const useIsAuthenticated = createHook(appStore, {
-  selector: (state) => !!state.account.address,
-});
+  if (loaderData.appStore) {
+    return loaderData.appStore;
+  }
+  return context || defaultAppStore;
+};
 
-export const useIsBetaUser = createHook(appStore, {
-  selector: (state) => !!state.account.isBeta,
-});
+export const useSetAppStore = (action: string) => {
+  const fetcher = useFetcher();
+  const formData = new FormData();
+  formData.append("action", action);
 
-export const useStoredAccount = createHook(appStore, {
-  selector: (state) => state.account,
-});
+  return (data?: Partial<IAppStore>) => {
+    formData.append("data", JSON.stringify(data));
+    fetcher.submit(formData, { method: "POST", action: "/auth" });
+  };
+};
+
+export const useStoredAccount = () => useAppStore().account;
+
+export const useIsAuthenticated = () => !!useStoredAccount().address;
+
+export const useIsBetaUser = () => !!useStoredAccount().isBeta;
 
 export const useSharedAccount = (): [
   IAppStore["account"],
   (a: Partial<IAppStore["account"]>) => void
 ] => {
-  const { address } = useAccount();
-  const { data: name } = useEnsName({ address });
-  const { data: image } = useEnsAvatar({ name });
-  const [storedAccount, { setAccount }] = useStoredAccount();
+  const { address, isConnected } = useAccount();
+  const storedAccount = useStoredAccount();
+  const setAppStore = useSetAppStore("update");
+  const { data: name } = useEnsName({ address, enabled: isConnected });
+  const { data: image } = useEnsAvatar({ name, enabled: isConnected });
 
   const account = useMemo(() => {
-    if (storedAccount.address === address) {
-      return {
-        ...storedAccount,
-        name: name || storedAccount.name,
-        image: image || storedAccount.image,
-      };
-    }
-    return storedAccount;
+    return {
+      ...storedAccount,
+      address: storedAccount.address === address ? address : undefined,
+      name: name || storedAccount.name,
+      image: image || storedAccount.image,
+    };
   }, [storedAccount, address, name, image]);
 
-  return [account, setAccount];
+  return [account, (b) => setAppStore({ account: { ...account, ...b } })];
 };
