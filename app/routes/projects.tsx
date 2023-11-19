@@ -4,12 +4,11 @@ export default function Projects() {
   return (
     <SectionHeader
       hero={
-        <>
-          <div className="w-full text-stone-900 text-5xl font-semibold leading-[62px] mb-6">
-            Welcome to the Future of Work!
-          </div>
-        </>
+        <div className="text-stone-900 text-2xl font-medium leading-normal">
+          Projects
+        </div>
       }
+      action={{ href: "/projects/new", label: "Create Project" }}
     />
   );
 }

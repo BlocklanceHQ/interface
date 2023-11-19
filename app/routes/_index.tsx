@@ -60,10 +60,14 @@ export default function Index() {
               sellers. Low fees, secured Data—powered by the community!
             </div>
             <div className="flex flex-col md:flex-row gap-4">
-              <button className="p-4 bg-primary-700 rounded-lg justify-center items-center gap-4 inline-flex text-neutral-50 font-medium cursor-not-allowed">
+              <a
+                href="https://blocklances-organization.gitbook.io/blocklance-v1/introduction/overview"
+                target="_blank"
+                className="p-4 bg-primary-700 rounded-lg justify-center items-center gap-4 inline-flex text-neutral-50 font-medium"
+              >
                 Read Whitepaper
                 <ExternalLinkIcon size={20} />
-              </button>
+              </a>
             </div>
           </>
         }

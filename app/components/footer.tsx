@@ -7,7 +7,7 @@ export const Footer = () => {
   const pending = state !== "idle";
   return (
     <footer className="w-full flex flex-col items-center bg-primary-700 rounded-lg pb-12">
-      <img src={OnchainImg} className="mb-16" />
+      <img src={OnchainImg} className="mb-16" alt="OnChain Footer" />
       <div className="flex flex-col items-center gap-6 mb-12">
         <div className="text-center text-neutral-50 text-2xl font-bold">
           Get notified when we launch
