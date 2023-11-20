@@ -157,15 +157,15 @@ export const ConnectWallet = () => {
       toast.error("Error connecting to wallet");
     },
     onSuccess(result) {
-      toast.success("Successfully connected to wallet");
       setAccount({ address: result.account, name: result.account });
+      toast.success("Successfully connected to wallet");
     },
   });
 
   const { disconnect } = useDisconnect({
     onSuccess() {
-      toast.success("Successfully disconnected wallet");
       setAccount({ address: undefined, name: "Guest", image: undefined });
+      toast.success("Successfully disconnected wallet");
     },
     onError() {
       toast.error("Error disconnecting wallet");

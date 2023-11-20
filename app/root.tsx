@@ -33,6 +33,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
     });
   }
 
+  if (isAuth && url.pathname === "/") {
+    return redirect("/dashboard", {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
+  }
+
   const accessCode = url.searchParams.get("accessCode");
   if (accessCode === "backdrop") {
     appStore.account.isBeta = true;

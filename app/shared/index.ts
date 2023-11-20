@@ -34,9 +34,14 @@ export const useSharedAccount = (): [
   IAppStore["account"],
   (a: Partial<IAppStore["account"]>) => void
 ] => {
-  const { address, isConnected } = useAccount();
-  const storedAccount = useStoredAccount();
   const setAppStore = useSetAppStore("update");
+  const resetAppStore = useSetAppStore("reset");
+  const { address, isConnected } = useAccount({
+    onDisconnect() {
+      resetAppStore();
+    },
+  });
+  const storedAccount = useStoredAccount();
   const { data: name } = useEnsName({ address, enabled: isConnected });
   const { data: image } = useEnsAvatar({ name, enabled: isConnected });
 
@@ -49,5 +54,5 @@ export const useSharedAccount = (): [
     };
   }, [storedAccount, address, name, image]);
 
-  return [account, (b) => setAppStore({ account: { ...account, ...b } })];
+  return [account, (a) => setAppStore({ account: { ...account, ...a } })];
 };

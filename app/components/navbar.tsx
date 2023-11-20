@@ -24,7 +24,11 @@ export const Navbar = () => {
   return (
     <nav className="mb-32">
       <header className="fixed top-0 w-full p-4 md:px-16 bg-neutral-50 rounded-bl-lg rounded-br-lg shadow justify-between items-center inline-flex z-10">
-        <Link to="/" className="justify-center items-center gap-4 flex">
+        <Link
+          to="/"
+          className="justify-center items-center gap-4 flex"
+          reloadDocument
+        >
           <span className="px-4 py-3 bg-primary-700 rounded-lg justify-center items-center gap-2.5 flex">
             <img src={LogoSvg} alt="Blocklance" />
           </span>
