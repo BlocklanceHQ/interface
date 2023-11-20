@@ -1918,18 +1918,6 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@react-hook/async@3.1.1":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@react-hook/async/-/async-3.1.1.tgz#c3cd06648fa5e6d209e9372940c806adb8462975"
-  integrity sha512-C9KoDSIjhmVwm6jXPnWfVqqrdPvqOnvUrkUStkUUODV4F1GfNlyVdmYx/54HsgMlham61xEF6UvScqiLTaHYeQ==
-  dependencies:
-    "@react-hook/latest" "^1.0.2"
-
-"@react-hook/latest@^1.0.2":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@react-hook/latest/-/latest-1.0.3.tgz#c2d1d0b0af8b69ec6e2b3a2412ba0768ac82db80"
-  integrity sha512-dy6duzl+JnAZcDbNTfmaP3xHiKtbXYOaz3G51MGVljh548Y8MWzTr+PHLOfvpypEVW9zwvl+VyKjbWKEVbV1Rg==
-
 "@remix-run/dev@2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@remix-run/dev/-/dev-2.3.0.tgz#5aa512a44fb8cfdd510dc51b93b8033f2d3d1f32"
@@ -9206,13 +9194,6 @@ react-router@6.19.0:
   dependencies:
     "@remix-run/router" "1.12.0"
 
-react-sweet-state@2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/react-sweet-state/-/react-sweet-state-2.7.1.tgz#0ac72bd1728e299df0a6d32c49eec639e387d40b"
-  integrity sha512-TCZxdl5Ek7KNUNF/ETeZC12VqWPRhIVi7l4nSs0KAfv4YktxhKxqfhBJyUFQd+oanMjQSWdWvS3FtJxcoi29YQ==
-  dependencies:
-    use-sync-external-store "^1.0.0"
-
 react@18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
@@ -10659,7 +10640,7 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-use-sync-external-store@1.2.0, use-sync-external-store@^1.0.0, use-sync-external-store@^1.2.0:
+use-sync-external-store@1.2.0, use-sync-external-store@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
   integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==

@@ -7,7 +7,7 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
-import { json, LoaderFunctionArgs } from "@remix-run/node";
+import { json, LoaderFunctionArgs, redirect } from "@remix-run/node";
 import { Toaster } from "react-hot-toast";
 import { Navbar } from "~/components/navbar";
 import WalletProvider from "~/providers/wallet";
@@ -17,11 +17,23 @@ import "@fontsource-variable/lexend-deca";
 import "~/assets/tailwind.css";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const queryParams = new URLSearchParams(request.url.split("?")[1]);
+  const url = new URL(request.url);
   const session = await getSession(request.headers.get("Cookie"));
   const appStore: IAppStore = session.get("appStore") ?? defaultAppStore;
+  const isAuth = appStore.account.address !== undefined;
 
-  const accessCode = queryParams.get("accessCode");
+  if (
+    !isAuth &&
+    ["dashboard", "projects", "payments"].includes(url.pathname.split("/")[1])
+  ) {
+    return redirect("/", {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
+  }
+
+  const accessCode = url.searchParams.get("accessCode");
   if (accessCode === "backdrop") {
     appStore.account.isBeta = true;
   }
