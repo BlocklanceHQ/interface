@@ -26,7 +26,7 @@ export const useSetAppStore = (action: string) => {
 
 export const useStoredAccount = () => useAppStore().account;
 
-export const useIsAuthenticated = () => !!useStoredAccount().address;
+export const useIsAuthenticated = () => !!useSharedAccount()[0].address;
 
 export const useIsBetaUser = () => !!useStoredAccount().isBeta;
 

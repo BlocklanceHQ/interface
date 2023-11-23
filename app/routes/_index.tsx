@@ -5,6 +5,9 @@ import { Card } from "~/components/card";
 import { Footer } from "~/components/footer";
 import { Socials } from "~/components/socials";
 import { SectionHeader } from "~/components/section-header";
+import AWSInfraSVG from "~/assets/infra/aws.svg";
+import BaseBlockchainSVG from "~/assets/infra/base.svg";
+import CeramicNetworkSVG from "~/assets/infra/ceramic.svg";
 
 export const meta: MetaFunction = () => {
   return [
@@ -40,7 +43,7 @@ export default function Index() {
         hero={
           <>
             <div className="w-full text-stone-900 text-5xl font-semibold leading-[62px] mb-6">
-              Welcome to the Future of Work!
+              Driving the Future of Work!
             </div>
             <div className="w-full text-neutral-600 text-lg mb-8">
               A decentralized freelancing platform, connecting buyers and
@@ -59,10 +62,49 @@ export default function Index() {
           </>
         }
       />
+      <div className="flex flex-col gap-16 m-16">
+        <h3 className="text-stone-900 text-lg capitalize text-center">
+          Built on infrastructure you can trust
+        </h3>
+        <div className="marquee w-full p-4 bg-red-50">
+          <div className="marquee__content">
+            <div className="px-4 py-6 justify-center items-center gap-8 flex">
+              <img src={BaseBlockchainSVG} alt="Base Blockchain" />
+              Base Blockchain
+            </div>
+            <div className="px-4 py-6 justify-center items-center gap-8 flex">
+              <img src={CeramicNetworkSVG} alt="Ceramic Network" />
+              Ceremic Network
+            </div>
+            <div className="px-4 py-6 justify-center items-center gap-8 flex">
+              <img src={AWSInfraSVG} alt="AWS" />
+              AWS
+            </div>
+          </div>
+
+          <div className="w-full marquee__content" aria-hidden>
+            <div className="px-4 py-6 justify-center items-center gap-8 flex">
+              <img src={BaseBlockchainSVG} alt="Base Blockchain" />
+              Base Blockchain
+            </div>
+            <div className="px-4 py-6 justify-center items-center gap-8 flex">
+              <img src={CeramicNetworkSVG} alt="Ceramic Network" />
+              Ceremic Network
+            </div>
+            <div className="px-4 py-6 justify-center items-center gap-8 flex">
+              <img src={AWSInfraSVG} alt="AWS" />
+              AWS
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="w-full mt-36 mb-8">
         <h1 className="text-stone-900 text-3xl font-medium text-center mb-6">
-          Everything you want. All in one.
+          Freelance Hub: All Your Needs, One Platform..
         </h1>
+        <p className="text-neutral-500 text-center">
+          Unlock limitless possibilities in one seamless freelance experience
+        </p>
         <div className="flex flex-col md:grid md:grid-cols-3 gap-8 md:m-24">
           <Card
             title="Maximizing your earnings"

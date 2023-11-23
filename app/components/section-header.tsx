@@ -3,6 +3,7 @@ import SvgNomad from "~/assets/svg/nomad.svg";
 
 interface SectionHeaderProps {
   hero?: React.ReactNode;
+  side?: React.ReactNode;
   action?: {
     label: string;
     href: string;
@@ -12,6 +13,7 @@ interface SectionHeaderProps {
 export const SectionHeader: React.FC<SectionHeaderProps> = ({
   hero,
   action,
+  side,
 }) => {
   return (
     <div className="w-full relative bg-gradient-to-l from-violet-300 to-violet-200 rounded-lg  flex flex-row justify-between items-center">
@@ -42,11 +44,13 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
           </Link>
         </div>
       ) : (
-        <img
-          src={SvgNomad}
-          className="hidden md:flex h-full"
-          alt="Freelance Nomad"
-        />
+        side ?? (
+          <img
+            src={SvgNomad}
+            className="hidden md:flex h-full"
+            alt="Freelance Nomad"
+          />
+        )
       )}
     </div>
   );

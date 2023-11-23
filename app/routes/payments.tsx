@@ -1,3 +1,4 @@
+import { EyeOff, Eye } from "lucide-react";
 import { SectionHeader } from "~/components/section-header";
 
 export default function Payments() {
@@ -5,10 +6,22 @@ export default function Payments() {
     <SectionHeader
       hero={
         <>
-          <div className="w-full text-stone-900 text-5xl font-semibold leading-[62px] mb-6">
-            Welcome to the Future of Work!
+          <div className="text-stone-900 text-2xl font-medium leading-normal mb-8">
+            Payments
+          </div>
+          <div className="text-neutral-600 text-lg">
+            Update your payments information or change your plans according to
+            your needs.
           </div>
         </>
+      }
+      side={
+        <div className="m-16">
+          <div className="text-stone-900 text-lg font-medium">
+            Available Balance
+            <EyeOff className="inline-block ml-2" size={24} />
+          </div>
+        </div>
       }
     />
   );

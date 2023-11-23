@@ -23,7 +23,7 @@ export const Navbar = () => {
   const isAuthenticated = useIsAuthenticated();
   return (
     <nav className="mb-32">
-      <header className="fixed top-0 w-full p-4 md:px-16 bg-neutral-50 rounded-bl-lg rounded-br-lg shadow justify-between items-center inline-flex z-10">
+      <header className="fixed top-0 w-full p-4 md:px-16 bg-neutral-50/30 rounded-bl-lg rounded-br-lg shadow justify-between items-center inline-flex z-10 backdrop-blur ">
         <Link
           to="/"
           className="justify-center items-center gap-4 flex"
@@ -35,7 +35,7 @@ export const Navbar = () => {
           <span className="text-neutral-600 font-bold">Blocklance</span>
         </Link>
         {isAuthenticated && (
-          <div className="hidden md:flex p-2 bg-neutral-100 rounded-full items-start text-sm text-neutral-500">
+          <div className="hidden md:flex p-2 bg-neutral-100/20 backdrop-blur-sm rounded-full items-start text-sm text-neutral-500">
             {navLinks.map((navLink) => (
               <NavLink
                 key={navLink.path}
@@ -44,7 +44,7 @@ export const Navbar = () => {
                   `px-12 py-2.5 ${
                     isActive
                       ? "bg-primary-700 text-neutral-100"
-                      : "bg-neutral-100 hover:text-primary-700"
+                      : "bg-transparent hover:text-primary-700"
                   }  rounded-3xl justify-center items-center flex`
                 }
               >
