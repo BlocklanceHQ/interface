@@ -1,6 +1,9 @@
 import { ActionFunctionArgs, json } from "@remix-run/node";
 import { commitSession, getSession } from "~/shared/session.server";
 import { defaultAppStore } from "~/shared/store";
+import { definition } from "~/ceramic.definition.json";
+
+console.log(definition);
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
