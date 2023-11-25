@@ -4,14 +4,12 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "ceramic": "CERAMIC_ENABLE_EXPERIMENTAL_COMPOSE_DB='true' ceramic daemon",
     "build": "vite build && vite build --ssr",
     "dev": "vite dev",
     "start": "remix-serve ./build/index.js",
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@ceramicnetwork/common": "2.39.0",
     "@composedb/client": "0.5.2",
     "@didtools/pkh-ethereum": "0.4.1",
     "@fontsource-variable/lexend-deca": "5.0.8",

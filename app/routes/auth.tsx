@@ -1,7 +1,7 @@
 import { ActionFunctionArgs, json } from "@remix-run/node";
 import { commitSession, getSession } from "~/shared/session.server";
 import { defaultAppStore } from "~/shared/store";
-import { definition } from "~/ceramic.definition.json";
+import { definition } from "~/ceramic.definition.js";
 
 console.log(definition);
 

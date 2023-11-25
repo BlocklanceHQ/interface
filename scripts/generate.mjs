@@ -17,10 +17,13 @@ const generateAdminKeyDid = async () => {
   await did.authenticate();
   return {
     seed: toString(seed, "base16"),
-    did,
+    did: did.id,
+    authenticated: did.authenticated,
   };
 };
 
-generateAdminKeyDid().then((config) => {
-  writeFileSync(`${process.cwd()}/config.json`, JSON.stringify(config));
-});
+export const generateLocalConfig = () =>
+  generateAdminKeyDid().then((config) => {
+    writeFileSync(`${process.cwd()}/config.json`, JSON.stringify(config));
+    return config;
+  });

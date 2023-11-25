@@ -390,7 +390,7 @@
     multiformats "^11.0.1"
     uint8arrays "^4.0.3"
 
-"@ceramicnetwork/common@2.39.0", "@ceramicnetwork/common@^2.35.0", "@ceramicnetwork/common@^2.39.0":
+"@ceramicnetwork/common@^2.35.0", "@ceramicnetwork/common@^2.39.0":
   version "2.39.0"
   resolved "https://registry.yarnpkg.com/@ceramicnetwork/common/-/common-2.39.0.tgz#7c1349b2aa5892bef74569504d6686c4a8aaff7c"
   integrity sha512-NB/6XzPqualWK5Kyti664VHhJug3Z8XDFNpYxM0dLz13lgtNnLWUt6xFG0I7chB0ecbhexanKRE/dh7Ltjczvw==

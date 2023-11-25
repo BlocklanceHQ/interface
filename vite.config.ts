@@ -12,9 +12,10 @@ import { globSync } from "glob";
 import { readFileSync } from "fs";
 import { CeramicClient } from "@ceramicnetwork/http-client";
 import { Composite } from "@composedb/devtools";
+import { generateLocalConfig } from "./scripts/generate.mjs";
 
 interface ViteCeramicCompositePluginOptions {
-  ceramic?: CeramicClient;
+  ceramic?: CeramicClient | string;
   source: string;
   target: string;
 }
@@ -32,7 +33,7 @@ const viteCeramicCompositePlugin = (
 ): Plugin => {
   // @ts-ignore - config.json is auto generated if not present
   const ceramicConfig = import("./config.json").catch(() =>
-    import("./scripts/generate.mjs").then(() => import("./config.json"))
+    generateLocalConfig()
   );
 
   const options = {
@@ -40,8 +41,26 @@ const viteCeramicCompositePlugin = (
     target: "ceramic.definition.json",
     ...opts,
   };
+
+  try {
+    if (typeof options.ceramic === "string") {
+      options.ceramic = new CeramicClient(options.ceramic);
+    }
+  } catch (e) {
+    throw new Error(
+      "Invalid ceramic client. Please provide a valid ceramic client or url"
+    );
+  }
+
+  const ceramic = options.ceramic ?? new CeramicClient("http://localhost:7007");
+
   return {
     name: "vite-ceramic-composite-plugin",
+    resolveId(id) {
+      if (id === options.target) {
+        return id;
+      }
+    },
     async load(id) {
       if (id === options.target) {
         const { seed } = await ceramicConfig;
@@ -51,8 +70,6 @@ const viteCeramicCompositePlugin = (
           provider: new Ed25519Provider(key),
         });
         await did.authenticate();
-        const ceramic =
-          options.ceramic ?? new CeramicClient("http://localhost:7007");
         ceramic.did = did;
 
         const schemaPaths = globSync(`${options.source}/**/*.schema.graphql`);
@@ -63,14 +80,17 @@ const viteCeramicCompositePlugin = (
             return Composite.create({
               ceramic,
               schema,
+              index: true,
             });
           })
         );
 
+        if (composites.length === 0) {
+          return "export const definition = {};";
+        }
+
         const deployComposite = Composite.from(composites);
         const definition = deployComposite.toRuntime();
-
-        await deployComposite.startIndexingOn(ceramic);
         return `export const definition = ${JSON.stringify(definition)}`;
       }
     },
@@ -85,7 +105,7 @@ export default defineConfig({
     ViteImageOptimizer(),
     viteCeramicCompositePlugin({
       source: "./graphql/composites",
-      target: "~/ceramic.definition.json",
+      target: "~/ceramic.definition.js",
     }),
   ],
 });

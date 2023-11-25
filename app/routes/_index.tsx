@@ -62,7 +62,7 @@ export default function Index() {
           </>
         }
       />
-      <div className="flex flex-col gap-16 m-16">
+      <div className="flex flex-col gap-16 my-16">
         <h3 className="text-stone-900 text-lg capitalize text-center">
           Built on infrastructure you can trust
         </h3>
@@ -74,7 +74,7 @@ export default function Index() {
             </div>
             <div className="px-4 py-6 justify-center items-center gap-8 flex">
               <img src={CeramicNetworkSVG} alt="Ceramic Network" />
-              Ceremic Network
+              Ceramic Network
             </div>
             <div className="px-4 py-6 justify-center items-center gap-8 flex">
               <img src={AWSInfraSVG} alt="AWS" />
