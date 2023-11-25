@@ -10,6 +10,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
 
   return yoga(request, context);
 }
+
 export async function loader({ request, context }: LoaderFunctionArgs) {
   const yoga = createHandler({
     ceramic: "http://localhost:7007",
