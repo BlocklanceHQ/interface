@@ -52,8 +52,6 @@ const viteCeramicCompositePlugin = (
     );
   }
 
-  const ceramic = options.ceramic ?? new CeramicClient("http://localhost:7007");
-
   return {
     name: "vite-ceramic-composite-plugin",
     resolveId(id) {
@@ -70,9 +68,15 @@ const viteCeramicCompositePlugin = (
           provider: new Ed25519Provider(key),
         });
         await did.authenticate();
-        ceramic.did = did;
 
         const schemaPaths = globSync(`${options.source}/**/*.schema.graphql`);
+        const { ceramic } = options;
+
+        if (schemaPaths.length === 0 || !(ceramic instanceof CeramicClient)) {
+          return "export const definition = {models:{},objects:{},enums:{},accountData:{}};";
+        }
+
+        ceramic.did = did;
 
         const composites = await Promise.all(
           schemaPaths.map((schemaPath) => {
@@ -83,10 +87,13 @@ const viteCeramicCompositePlugin = (
               index: true,
             });
           })
-        );
+        ).catch((e) => {
+          console.error(e);
+          return [];
+        });
 
         if (composites.length === 0) {
-          return "export const definition = {};";
+          return "export const definition = {models:{},objects:{},enums:{},accountData:{}};";
         }
 
         const deployComposite = Composite.from(composites);
@@ -106,6 +113,7 @@ export default defineConfig({
     viteCeramicCompositePlugin({
       source: "./graphql/composites",
       target: "~/ceramic.definition.js",
+      ceramic: process.env.CERAMIC_NODE_URL,
     }),
   ],
 });
