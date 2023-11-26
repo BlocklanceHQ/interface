@@ -1,0 +1,3 @@
+type Profile @loadModel(id: "kjzl6hvfrbw6c9rooumdyvkp6t7f42tua6rz7hx1n17ny990akpq25nok1qv5xd") {
+              id: ID!
+            }

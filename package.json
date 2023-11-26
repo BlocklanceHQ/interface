@@ -10,7 +10,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@composedb/client": "0.6.0-rc.1",
+    "@composedb/client": "0.5.2",
     "@didtools/pkh-ethereum": "0.4.1",
     "@fontsource-variable/lexend-deca": "5.0.8",
     "@headlessui/react": "1.7.17",
@@ -31,9 +31,9 @@
     "web3.storage": "4.5.5"
   },
   "devDependencies": {
-    "@composedb/devtools": "0.6.0-rc.1",
-    "@composedb/devtools-node": "0.6.0-rc.1",
-    "@composedb/types": "0.6.0-rc.1",
+    "@composedb/devtools": "0.5.1",
+    "@composedb/devtools-node": "0.5.2",
+    "@composedb/types": "0.5.1",
     "@remix-run/dev": "2.3.0",
     "@remix-run/eslint-config": "2.3.0",
     "@types/react": "18.2.37",

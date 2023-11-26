@@ -1,0 +1,15 @@
+type Profile @loadModel(id: "$COMPOSED_PROFILE_ID") {
+    id: ID!
+}
+
+type Project @createModel(accountRelation: SINGLE, description: "A Project") {
+    projectId: DID! @documentAccount
+    name: String! @string(minLength: 3, maxLength: 100)
+    description: String @string(minLength: 5, maxLength: 100)
+    startDate: String @string(minLength: 3, maxLength: 100)
+    endDate: String @string(minLength: 3, maxLength: 100)
+    budget: Float @float(min: 0, max: 1000000)
+    status: String @string(minLength: 3, maxLength: 100)
+    profileId: StreamID! @documentReference(model: "Profile")
+    profile: Profile! @relationDocument(property: "profileId")
+}

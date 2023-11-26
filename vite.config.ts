@@ -9,7 +9,7 @@ import { DID } from "dids";
 import { Ed25519Provider } from "key-did-provider-ed25519";
 import { getResolver } from "key-did-resolver";
 import { globSync } from "glob";
-import { readFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { CeramicClient } from "@ceramicnetwork/http-client";
 import { Composite } from "@composedb/devtools";
 import { generateLocalConfig } from "./scripts/generate.mjs";
@@ -69,7 +69,24 @@ const viteCeramicCompositePlugin = (
         });
         await did.authenticate();
 
-        const schemaPaths = globSync(`${options.source}/**/*.schema.graphql`);
+        const compiledSchemaPaths = globSync(
+          `${options.source}/**/*.compiled.graphql`
+        );
+        const rawSchemaPaths = globSync(
+          `${options.source}/**/*.schema.graphql`
+        );
+        // build a list of all schema paths and ensure that we only have one schema per name (compiled or raw). compiled paths take precedence
+        const schemaPaths = [
+          ...rawSchemaPaths.filter(
+            (rawPath) =>
+              !compiledSchemaPaths.some(
+                (compiledPath) =>
+                  compiledPath.replace(".compiled", "") ===
+                  rawPath.replace(".compiled", "")
+              )
+          ),
+          ...compiledSchemaPaths,
+        ];
         const { ceramic } = options;
 
         if (schemaPaths.length === 0 || !(ceramic instanceof CeramicClient)) {
@@ -78,19 +95,51 @@ const viteCeramicCompositePlugin = (
 
         ceramic.did = did;
 
-        const composites = await Promise.all(
-          schemaPaths.map((schemaPath) => {
-            const schema = readFileSync(schemaPath, "utf-8");
-            return Composite.create({
-              ceramic,
-              schema,
-              index: true,
-            });
+        const schemas = schemaPaths
+          .map((path) => {
+            const source = readFileSync(path, "utf-8");
+            return {
+              source,
+              id: path.split("/").pop()?.split(".")[0] ?? "",
+              composed: source.split("$COMPOSED_").length - 1,
+            };
           })
-        ).catch((e) => {
-          console.error(e);
-          return [];
-        });
+          .sort((a) => (a.composed > 0 ? 1 : -1));
+
+        const composites: Composite[] = [];
+
+        for (const schema of schemas) {
+          const schemaSource = composites.reduce((source, c) => {
+            const [streamId, streamName] = Object.entries(
+              c.toJSON().aliases ?? {}
+            )[0];
+            return source.replace(`$COMPOSED_${streamName}_ID`, streamId);
+          }, schema.source);
+
+          const composite = await Composite.create({
+            schema: schemaSource,
+            ceramic,
+            index: true,
+          });
+
+          composites.push(
+            composite.setAliases({
+              [composite.modelIDs[schema.composed]]: schema.id.toUpperCase(),
+            })
+          );
+
+          const capitalizedId =
+            schema.id.charAt(0).toUpperCase() + schema.id.slice(1);
+
+          writeFileSync(
+            `${options.source}/${schema.id}.compiled.graphql`,
+            `type ${capitalizedId} @loadModel(id: "${
+              composite.modelIDs[schema.composed]
+            }") {
+              id: ID!
+            }`
+          );
+        }
 
         if (composites.length === 0) {
           return "export const definition = {models:{},objects:{},enums:{},accountData:{}};";
@@ -113,7 +162,7 @@ export default defineConfig({
     viteCeramicCompositePlugin({
       source: "./graphql/composites",
       target: "~/ceramic.definition.js",
-      ceramic: process.env.CERAMIC_NODE_URL,
+      ceramic: process.env.CERAMIC_NODE_URL ?? "http://localhost:7007",
     }),
   ],
 });

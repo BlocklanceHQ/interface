@@ -1,0 +1,3 @@
+type Gig @loadModel(id: "kjzl6hvfrbw6c6f9i3930296wq3xl2122kyfu1ek7r7npejlnd1smop6qkpvxy0") {
+              id: ID!
+            }

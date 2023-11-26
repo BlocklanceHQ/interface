@@ -1,0 +1,13 @@
+type Profile @loadModel(id: "$COMPOSED_PROFILE_ID") {
+    id: ID!
+}
+
+type Gig @createModel(accountRelation: SINGLE, description: "A user created gig to display service offered") {
+    gigId: DID! @documentAccount 
+    title: String! @string(minLength: 3, maxLength: 100)
+    description: String! @string(minLength: 3, maxLength: 100)
+    price: Float! @float(min: 0, max: 100000)
+    category: String! @string(minLength: 3, maxLength: 100)
+    profileId: StreamID! @documentReference(model: "Profile")
+    profile: Profile! @relationDocument(property: "profileId")
+}
