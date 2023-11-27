@@ -1,3 +1,3 @@
-type Project @loadModel(id: "kjzl6hvfrbw6c93584n0v1w0dtq0l3ey3qnt5cnanmrpxr8dqwpowqsg6ezej1t") {
+type Project @loadModel(id: "kjzl6hvfrbw6c8n5y9inxyovzze92djqvx8g1a7m471g7jdgq2tk6xczp9ls8o6") {
               id: ID!
             }

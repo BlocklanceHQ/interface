@@ -194,7 +194,7 @@ export const ConnectWallet = () => {
             }
           >
             {isLoading && <Loader2Icon className="animate-spin" size={20} />}
-            Connect Wallet
+            Login/Sign Up
           </Menu.Button>
         )}
         <Transition

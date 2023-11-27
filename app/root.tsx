@@ -6,10 +6,12 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useLocation,
 } from "@remix-run/react";
 import { json, LoaderFunctionArgs, redirect } from "@remix-run/node";
 import { Toaster } from "react-hot-toast";
 import { Navbar } from "~/components/navbar";
+import { Breadcrumbs } from "./components/breadcrumb";
 import WalletProvider from "~/providers/wallet";
 import { commitSession, getSession } from "~/shared/session.server";
 import { IAppStore, defaultAppStore } from "./shared/store";
@@ -58,6 +60,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function App() {
   const { appStore } = useLoaderData<typeof loader>();
+  const { pathname } = useLocation();
   return (
     <html lang="en">
       <head>
@@ -69,6 +72,8 @@ export default function App() {
       <body className="bg-neutral-50 font-sans">
         <WalletProvider>
           <Navbar />
+          <Breadcrumbs paths={pathname.split("/")} />
+
           <div className="mx-4 md:mx-16 my-8">
             <Outlet context={appStore} />
           </div>
