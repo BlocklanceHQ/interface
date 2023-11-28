@@ -1,6 +1,8 @@
 import { SectionHeader } from "~/components/section-header";
+import { useSharedAccount } from "~/shared";
 
 export default function Dashboard() {
+  const [account] = useSharedAccount();
   return (
     <>
       <SectionHeader
@@ -11,7 +13,7 @@ export default function Dashboard() {
                 Welcome Back,
               </span>{" "}
               <span className="text-stone-900 text-2xl font-semibold leading-normal">
-                Samuel
+                {account.name}
               </span>
             </div>
             <div className="w-28 h-16 justify-center items-center gap-2.5 inline-flex mb-4">

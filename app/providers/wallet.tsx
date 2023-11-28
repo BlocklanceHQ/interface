@@ -1,5 +1,11 @@
 import type { FC, PropsWithChildren } from "react";
-import { WagmiConfig, createConfig, configureChains, mainnet } from "wagmi";
+import {
+  WagmiConfig,
+  createConfig,
+  configureChains,
+  Chain,
+  mainnet,
+} from "wagmi";
 
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
@@ -8,11 +14,25 @@ import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 
+const baseChain: Chain = {
+  ...mainnet,
+  id: 84531,
+  name: "Base Goerli",
+  rpcUrls: {
+    default: {
+      http: ["https://goerli.base.org"],
+    },
+    public: {
+      http: ["https://goerli.base.org"],
+    },
+  },
+};
+
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [mainnet],
+  [baseChain],
   [
     alchemyProvider({
-      apiKey: "t3tFScPwa1xPFKnAMrTlk2Ml4g0Uue6v",
+      apiKey: "isUqQYX_Of0e0lxaQnItg2NSkvQy_PSx",
     }),
     publicProvider(),
   ]

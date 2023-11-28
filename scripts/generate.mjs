@@ -22,8 +22,7 @@ const generateAdminKeyDid = async () => {
   };
 };
 
-export const generateLocalConfig = () =>
-  generateAdminKeyDid().then((config) => {
-    writeFileSync(`${process.cwd()}/config.json`, JSON.stringify(config));
-    return config;
-  });
+generateAdminKeyDid().then((config) => {
+  writeFileSync(`${process.cwd()}/config.json`, JSON.stringify(config));
+  return config;
+});

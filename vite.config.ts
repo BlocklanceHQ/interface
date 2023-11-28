@@ -12,7 +12,6 @@ import { globSync } from "glob";
 import { readFileSync, writeFileSync } from "fs";
 import { CeramicClient } from "@ceramicnetwork/http-client";
 import { Composite } from "@composedb/devtools";
-import { generateLocalConfig } from "./scripts/generate.mjs";
 
 interface ViteCeramicCompositePluginOptions {
   ceramic?: CeramicClient | string;
@@ -32,9 +31,9 @@ const viteCeramicCompositePlugin = (
   opts?: ViteCeramicCompositePluginOptions
 ): Plugin => {
   // @ts-ignore - config.json is auto generated if not present
-  const ceramicConfig = import("./config.json").catch(() =>
-    generateLocalConfig()
-  );
+  const ceramicConfig = {
+    seed: String(process.env.ADMIN_SEED),
+  };
 
   const options = {
     source: "composites",
@@ -61,7 +60,7 @@ const viteCeramicCompositePlugin = (
     },
     async load(id) {
       if (id === options.target) {
-        const { seed } = await ceramicConfig;
+        const { seed } = ceramicConfig;
         const key = fromString(seed, "base16");
         const did = new DID({
           resolver: getResolver(),

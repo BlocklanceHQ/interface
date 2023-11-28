@@ -7,7 +7,7 @@ export const useAppStore = () => {
   const context = useOutletContext<IAppStore>();
   const loaderData = useLoaderData<{ appStore?: IAppStore }>();
 
-  if (loaderData.appStore) {
+  if (loaderData?.appStore) {
     return loaderData.appStore;
   }
   return context || defaultAppStore;

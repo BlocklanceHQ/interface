@@ -5,6 +5,11 @@ export interface IAppStore {
     address?: string;
     image?: string;
     isBeta?: boolean;
+    description?: string;
+    username?: string;
+    skills?: string[];
+    gender?: string;
+    createdAt?: string;
   };
 }
 
