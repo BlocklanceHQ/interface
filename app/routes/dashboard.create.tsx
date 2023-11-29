@@ -27,9 +27,10 @@ export default function CreateGig() {
           </div>
         </div>
         <div className="w-full justify-start items-end gap-4  flex-col flex">
-          <textarea className="w-full h-32 p-6 rounded-lg border border-violet-200 justify-start items-start gap-2.5 inline-flex text-neutral-600 text-lg">
-            I will do something am skilled at
-          </textarea>
+          <textarea
+            className="w-full h-32 p-6 rounded-lg border border-violet-200 justify-start items-start gap-2.5 inline-flex text-neutral-600 text-lg"
+            placeholder="I will do something am skilled at"
+          ></textarea>
 
           <div className="text-neutral-400 text-lg">0/80 Max</div>
         </div>

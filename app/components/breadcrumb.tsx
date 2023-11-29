@@ -7,11 +7,11 @@ const crumbs = [
   },
   {
     name: "Project",
-    path: "/project",
+    path: "/projects",
   },
   {
     name: "Create Project",
-    path: "/project/new",
+    path: "/projects/new",
   },
   {
     name: "Create Gig",
