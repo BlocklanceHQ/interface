@@ -1,3 +1,0 @@
-type Gig @loadModel(id: "kjzl6hvfrbw6c8wddn92yldh0ev17snjurrjv6llnrofsbop956xeyz03m9wfnq") {
-              id: ID!
-            }

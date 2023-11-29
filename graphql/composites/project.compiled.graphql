@@ -1,3 +1,0 @@
-type Project @loadModel(id: "kjzl6hvfrbw6c6uuw2gtyhwv61keex2t8413d82yg4gb5uxb3ks1tll1uo5cjb2") {
-              id: ID!
-            }

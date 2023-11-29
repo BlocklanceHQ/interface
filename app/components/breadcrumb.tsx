@@ -2,12 +2,24 @@ import { ChevronRight } from "lucide-react";
 
 const crumbs = [
   {
+    name: "Dashboard",
+    path: "/dashboard",
+  },
+  {
     name: "Project",
     path: "/project",
   },
   {
     name: "Create Project",
     path: "/project/new",
+  },
+  {
+    name: "Create Gig",
+    path: "/dashboard/create",
+  },
+  {
+    name: "Payments",
+    path: "/payments",
   },
 ];
 

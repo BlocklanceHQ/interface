@@ -3,7 +3,7 @@ import { useFetcher, useLoaderData, useOutletContext } from "@remix-run/react";
 import { useAccount, useEnsAvatar, useEnsName } from "wagmi";
 import { IAppStore, defaultAppStore } from "./store";
 
-export * from "./actions";
+// export * from "./actions";
 
 export const useAppStore = () => {
   const context = useOutletContext<IAppStore>();

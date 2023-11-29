@@ -13,24 +13,24 @@ export default function Dashboard() {
                 Welcome Back,
               </span>{" "}
               <span className="text-stone-900 text-2xl font-semibold leading-normal">
-                {account.name}
+                Samuel
               </span>
             </div>
             <div className="w-28 h-16 justify-center items-center gap-2.5 inline-flex mb-4">
-              <div className="text-black text-5xl font-semibold">20</div>
+              <div className="text-black text-5xl font-semibold">0</div>
               <div className="text-black text-base font-medium">Gigs</div>
             </div>
             <div className="flex gap-3 flex-col mb-8">
               <div className="flex gap-2 items-center text-neutral-600 text-sm">
                 <div className="w-2 h-2 bg-green-400 rounded-full" />
                 Active gigs
-                <span className="font-semibold">12</span>
+                <span className="font-semibold">_</span>
                 published
               </div>
               <div className="flex gap-2 items-center text-neutral-600 text-sm">
                 <div className="w-2 h-2 bg-neutral-400 rounded-full" />
                 Paused
-                <span className="font-semibold">8</span>
+                <span className="font-semibold">_</span>
                 gigs
               </div>
             </div>
@@ -38,9 +38,12 @@ export default function Dashboard() {
               <button className="w-full md:w-48 h-14 px-8 py-4 bg-primary-700 hover:bg-primary-600 rounded-lg justify-center items-center gap-2.5 inline-flex text-neutral-50 font-medium">
                 Find Work
               </button>
-              <button className="w-full md:w-48 h-14 px-8 py-4 bg-violet-300 hover:bg-violet-400 rounded-lg justify-center items-center gap-2.5 inline-flex text-primary-700 font-medium">
+              <a
+                href="/dashboard/create"
+                className="w-full md:w-48 h-14 px-8 py-4 bg-violet-300 hover:bg-violet-400 rounded-lg justify-center items-center gap-2.5 inline-flex text-primary-700 font-medium"
+              >
                 Create New Gig
-              </button>
+              </a>
             </div>
           </>
         }

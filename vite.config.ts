@@ -33,6 +33,7 @@ const viteCeramicCompositePlugin = (
   // @ts-ignore - config.json is auto generated if not present
   const ceramicConfig = {
     seed: String(process.env.ADMIN_SEED),
+    did: String(process.env.ADMIN_DID),
   };
 
   const options = {
@@ -60,11 +61,12 @@ const viteCeramicCompositePlugin = (
     },
     async load(id) {
       if (id === options.target) {
-        const { seed } = ceramicConfig;
-        const key = fromString(seed, "base16");
         const did = new DID({
+          parent: ceramicConfig.did,
           resolver: getResolver(),
-          provider: new Ed25519Provider(key),
+          provider: new Ed25519Provider(
+            fromString(ceramicConfig.seed, "base16")
+          ),
         });
         await did.authenticate();
 
@@ -114,30 +116,37 @@ const viteCeramicCompositePlugin = (
             )[0];
             return source.replace(`$COMPOSED_${streamName}_ID`, streamId);
           }, schema.source);
+          try {
+            if (schemaSource.includes("$COMPOSED_")) {
+              console.log(`Skipping ${schema.id} due to composite ref issue`);
+              continue;
+            }
+            const composite = await Composite.create({
+              schema: schemaSource,
+              ceramic,
+              index: true,
+            });
 
-          const composite = await Composite.create({
-            schema: schemaSource,
-            ceramic,
-            index: true,
-          });
+            composites.push(
+              composite.setAliases({
+                [composite.modelIDs[schema.composed]]: schema.id.toUpperCase(),
+              })
+            );
 
-          composites.push(
-            composite.setAliases({
-              [composite.modelIDs[schema.composed]]: schema.id.toUpperCase(),
-            })
-          );
+            const capitalizedId =
+              schema.id.charAt(0).toUpperCase() + schema.id.slice(1);
 
-          const capitalizedId =
-            schema.id.charAt(0).toUpperCase() + schema.id.slice(1);
-
-          writeFileSync(
-            `${options.source}/${schema.id}.compiled.graphql`,
-            `type ${capitalizedId} @loadModel(id: "${
-              composite.modelIDs[schema.composed]
-            }") {
+            writeFileSync(
+              `${options.source}/${schema.id}.compiled.graphql`,
+              `type ${capitalizedId} @loadModel(id: "${
+                composite.modelIDs[schema.composed]
+              }") {
               id: ID!
             }`
-          );
+            );
+          } catch (e) {
+            console.warn("Error with composites", e);
+          }
         }
 
         if (composites.length === 0) {
