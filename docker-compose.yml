@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+     AIRTABLE_API_KEY: ${AIRTABLE_API_KEY}
+     AIRTABLE_TABLE_ID: ${AIRTABLE_TABLE_ID}
+     ALCHEMY_API_KEY: ${ALCHEMY_API_KEY}
+     SESSION_SECRET: ${SESSION_SECRET}
+     CERAMIC_NODE_URL: ${CERAMIC_NODE_URL}
+     ADMIN_SEED: ${ADMIN_SEED}
+     ESCROW_FACTORY: ${ESCROW_FACTORY}
